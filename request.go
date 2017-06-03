@@ -50,7 +50,7 @@ func request(method string, endpoint string, data []byte) ([]byte, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-    	return nil, fmt.Errorf("%s\n%s", resp.StatusCode, string(body))
+    	return nil, fmt.Errorf("%d\n%s", resp.StatusCode, string(body))
     }
 
 	return body, nil
