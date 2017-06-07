@@ -3,13 +3,13 @@ package httputil
 import (
 	"bytes"
 	"fmt"
+	"github.com/pkg/errors"
 	"io/ioutil"
 	"net/http"
 	"time"
-	"github.com/pkg/errors"
 )
 
-const REQUEST_TIMEOUT int = 3 // seconds
+const REQUEST_TIMEOUT int = 30 // seconds
 
 func Get(endpoint string) ([]byte, error) {
 	return request("GET", endpoint, nil)
@@ -50,8 +50,8 @@ func request(method string, endpoint string, data []byte) ([]byte, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-    	return nil, fmt.Errorf("%d\n%s", resp.StatusCode, string(body))
-    }
+		return nil, fmt.Errorf("%d\n%s", resp.StatusCode, string(body))
+	}
 
 	return body, nil
 }
